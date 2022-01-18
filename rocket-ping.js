@@ -6,13 +6,13 @@ const driver2 = sdk2.driver;
 // customize the following with your server and BOT account information
 
 const accounts = [
-    {
-    host: 'open.rocket.chat',
-    user: 'asternov97',
-    pass: 'kba333ap',
-    ssl: true,
-    driv: driver2,
-},
+//     {
+//     host: 'open.rocket.chat',
+//     user: 'asternov97',
+//     pass: 'kba333ap',
+//     ssl: true,
+//     driv: driver2,
+// },
     {
     host: 'hellochat.ru',
     user: 'andrey.ternovsky',
