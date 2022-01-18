@@ -6,8 +6,12 @@ const accounts = [{
     user: 'asternov97',
     pass: 'kba333ap',
     ssl: true,
+}, {
+    host: 'hellochat.ru',
+    user: 'andrey.ternovsky',
+    pass: 'tehsKdfs12l',
+    ssl: true,
 }];
-
 
 const BOTNAME = '';  // name  bot response to
 const SSL = true;  // server uses https ?
@@ -18,10 +22,17 @@ var myuserid;
 // and other production situations
 
 const runbot = async (acc) => {
+    let checkTime = () => {
+        if (new Date().getUTCHours() >= 16) {
+            process.exit(1);
+        }
+    }
+    setInterval(checkTime, 5 * 1000);
+
     const conn = await driver.connect( { host: acc.host, useSsl: acc.ssl})
     myuserid = await driver.login({username: acc.user, password: acc.pass});
-    const roomsJoined = await driver.joinRooms(ROOMS);
-    console.log('joined rooms');
+    // const roomsJoined = await driver.joinRooms(ROOMS);
+    console.log('joined rooms ' + Date.now());
 
     // set up subscriptions - rooms we are interested in listening to
     const subscribed = await driver.subscribeToMessages();
@@ -37,6 +48,12 @@ const runbot = async (acc) => {
     // greets from the first room in ROOMS
     // const sent = await driver.sendToRoom( BOTNAME + ' is listening ...',ROOMS[0]);
     console.log('Greeting message sent');
+
+    let isWorkDay = new Date().getDay() <= 5;
+    let isFirstMessage = false;
+    if (isWorkDay && isFirstMessage) {
+        await driver.sendToRoom('Доброе утро!', 'vea_dev');
+    }
 }
 
 // callback for incoming messages filter and processing
