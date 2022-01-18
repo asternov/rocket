@@ -1,17 +1,26 @@
-const { driver } = require('@rocket.chat/sdk');
+
+const sdk = require('@rocket.chat/sdk')
+const sdk2 = require('@rocket.chat/sdk')
+const { driver } = sdk;
+const driver2 = sdk2.driver;
 // customize the following with your server and BOT account information
 
-const accounts = [{
+const accounts = [
+    {
     host: 'open.rocket.chat',
     user: 'asternov97',
     pass: 'kba333ap',
     ssl: true,
-}, {
+    driv: driver2,
+},
+    {
     host: 'hellochat.ru',
     user: 'andrey.ternovsky',
     pass: 'tehsKdfs12l',
     ssl: true,
-}];
+    driv: driver,
+}
+];
 
 const BOTNAME = '';  // name  bot response to
 const SSL = true;  // server uses https ?
@@ -29,6 +38,7 @@ const runbot = async (acc) => {
     }
     setInterval(checkTime, 5 * 1000);
 
+    let driver = acc.driv;
     const conn = await driver.connect( { host: acc.host, useSsl: acc.ssl})
     myuserid = await driver.login({username: acc.user, password: acc.pass});
     // const roomsJoined = await driver.joinRooms(ROOMS);
