@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('rocket')->everyMinute();
+         $schedule->command('rocket')->dailyAt('5:00');
     }
 
     /**
