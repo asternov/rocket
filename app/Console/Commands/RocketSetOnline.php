@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use ATDev\RocketChat\Channels\Channel;
 use ATDev\RocketChat\Chat;
+use ATDev\RocketChat\Ims\Im;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class RocketSetOnline extends Command
@@ -38,16 +41,25 @@ class RocketSetOnline extends Command
      */
     public function handle()
     {
-        Chat::setUrl("https://open.rocket.chat"); // No trailing /
-
-// Now, login
-        $result = Chat::login("andrew", "kba333ap");
-
-        $this->output->writeln(var_export(Chat::getResponse()));
+        Chat::setUrl("https://open.rocket.chat");
+        $result = Chat::login("asternov97", "kba333ap");
+        $user = new \ATDev\RocketChat\Users\User('4fBJa8LZyP6hSSNoq');
+        $statusResult = $user->setStatusValue('online');
+//        $statusResult = $user->getStatus();
+//        $listing = Channel::listing();
+////        $im = Im::listEveryone();
+//        $message = new \ATDev\RocketChat\Messages\Message();
+//        $message->setRoomId("andrew");
+//        $message->setText("Message text");
+//        $result = $message->postMessage();
+        var_export($statusResult);
         if (!$result) {
-
-            Chat::getError();
+            info('errrroer', [Chat::getError()]);
+        } else {
+            var_export('hello');
         }
+
+        info('start rocket script', [Carbon::now()]);
 
         return 0;
     }
