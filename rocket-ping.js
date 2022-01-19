@@ -1,31 +1,21 @@
-
-const sdk = require('@rocket.chat/sdk')
-const sdk2 = require('@rocket.chat/sdk')
-const { driver } = sdk;
-const driver2 = sdk2.driver;
+const {driver} = require('@rocket.chat/sdk');
 // customize the following with your server and BOT account information
 
-const accounts = [
-//     {
-//     host: 'open.rocket.chat',
-//     user: 'asternov97',
-//     pass: 'kba333ap',
-//     ssl: true,
-//     driv: driver2,
-// },
-    {
+const accounts = [{
+    host: 'open.rocket.chat',
+    user: 'asternov97',
+    pass: 'kba333ap',
+    ssl: true,
+    driv: driver2,
+}, {
     host: 'hellochat.ru',
     user: 'andrey.ternovsky',
     pass: 'tehsKdfs12l',
     ssl: true,
     driv: driver,
-}
-];
+}];
 
-const BOTNAME = '';  // name  bot response to
-const SSL = true;  // server uses https ?
-const ROOMS = [''];
-
+let i = process.argv[2] == 'test' ? 0 : 1;
 var myuserid;
 // this simple bot does not handle errors, different message types, server resets
 // and other production situations
@@ -36,10 +26,10 @@ const runbot = async (acc) => {
             process.exit(1);
         }
     }
+
     setInterval(checkTime, 5 * 1000);
 
-    let driver = acc.driv;
-    const conn = await driver.connect( { host: acc.host, useSsl: acc.ssl})
+    const conn = await driver.connect({host: acc.host, useSsl: acc.ssl})
     myuserid = await driver.login({username: acc.user, password: acc.pass});
     // const roomsJoined = await driver.joinRooms(ROOMS);
     console.log('joined rooms ' + Date.now());
@@ -67,7 +57,9 @@ const runbot = async (acc) => {
 }
 
 // callback for incoming messages filter and processing
-const processMessages = async(err, message, messageOptions) => {
+const processMessages = async (err, message, messageOptions) => {
+
+    const BOTNAME = '';  // name  bot response to
     if (!err) {
         // filter our own message
         if (message.u._id === myuserid) return;
@@ -82,4 +74,4 @@ const processMessages = async(err, message, messageOptions) => {
     }
 }
 
-accounts.forEach(runbot)
+runbot(accounts[i]);
