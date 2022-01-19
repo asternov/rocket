@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\RocketSetOnline;
+use App\Console\Commands\RocketTestOnline;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,8 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('rocket')->between('5:00', '16:00')->everyMinute();
-         $schedule->command('rocket-test')->between('5:00', '16:00')->everyMinute();
+         $schedule->command(RocketSetOnline::class)->between('5:00', '16:00')->everyMinute();
+         $schedule->command(RocketTestOnline::class)->between('5:00', '16:00')->everyMinute();
     }
 
     /**
