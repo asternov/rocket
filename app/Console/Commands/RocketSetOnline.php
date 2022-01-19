@@ -42,6 +42,7 @@ class RocketSetOnline extends Command
      */
     public function handle()
     {
+        set_time_limit(11 * 60 * 60);
         $process = new Process(['node', 'rocket-ping.js']);
         $process->run();
 

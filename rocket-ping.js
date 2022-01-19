@@ -6,13 +6,11 @@ const accounts = [{
     user: 'asternov97',
     pass: 'kba333ap',
     ssl: true,
-    driv: driver2,
 }, {
     host: 'hellochat.ru',
     user: 'andrey.ternovsky',
     pass: 'tehsKdfs12l',
     ssl: true,
-    driv: driver,
 }];
 
 let i = process.argv[2] == 'test' ? 0 : 1;
@@ -23,38 +21,27 @@ var myuserid;
 const runbot = async (acc) => {
     let checkTime = () => {
         if (new Date().getUTCHours() >= 16) {
-            process.exit(1);
+            //process.exit(1);
         }
     }
 
     setInterval(checkTime, 5 * 1000);
-
     const conn = await driver.connect({host: acc.host, useSsl: acc.ssl})
     myuserid = await driver.login({username: acc.user, password: acc.pass});
-    // const roomsJoined = await driver.joinRooms(ROOMS);
     console.log('joined rooms ' + Date.now());
-
-    // set up subscriptions - rooms we are interested in listening to
     const subscribed = await driver.subscribeToMessages();
     console.log('subscribed');
-
-    // connect the processMessages callback
-    // const msgloop = await driver.reactToMessages( processMessages );
-    console.log('connected and waiting for messages');
-
-    // when a message is created in one of the ROOMS, we
-    // receive it in the processMesssages callback
-
-    // greets from the first room in ROOMS
-    // const sent = await driver.sendToRoom( BOTNAME + ' is listening ...',ROOMS[0]);
-    console.log('Greeting message sent');
 
     let isWorkDay = new Date().getDay() <= 5;
     let isFirstMessage = false;
     if (isWorkDay && isFirstMessage) {
         await driver.sendToRoom('Доброе утро!', 'vea_dev');
+        console.log('Greeting message sent');
     }
 }
+
+runbot(accounts[i]);
+
 
 // callback for incoming messages filter and processing
 const processMessages = async (err, message, messageOptions) => {
@@ -74,4 +61,3 @@ const processMessages = async (err, message, messageOptions) => {
     }
 }
 
-runbot(accounts[i]);

@@ -42,7 +42,8 @@ class RocketTestOnline extends Command
      */
     public function handle()
     {
-        $process = new Process(['node', 'rocket-ping.js test']);
+        set_time_limit(11 * 60 * 60);
+        $process = new Process(['node', 'rocket-ping.js', 'test']);
         $process->run();
 
         return 0;
