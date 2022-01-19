@@ -2,10 +2,6 @@
 
 namespace App\Console\Commands;
 
-use ATDev\RocketChat\Channels\Channel;
-use ATDev\RocketChat\Chat;
-use ATDev\RocketChat\Ims\Im;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
@@ -23,7 +19,7 @@ class RocketSetOnline extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command RocketSetOnline';
 
     /**
      * Create a new command instance.

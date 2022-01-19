@@ -23,7 +23,7 @@ class RocketTestOnline extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command RocketTestOnline';
 
     /**
      * Create a new command instance.
